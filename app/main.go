@@ -50,6 +50,7 @@ func main() {
 			fmt.Println("nikhilk2")
 			fmt.Println(receivedBytes[i])
 			length := int(receivedBytes[i])
+			fmt.Println(length)
 			receivedQuestion = append(receivedQuestion, receivedBytes[i])
 			if length == 0 {
 				break
