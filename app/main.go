@@ -40,6 +40,7 @@ func main() {
 		i := 0
 		for i < len(receivedBytes) {
 			x += string(receivedBytes[i])
+			i++
 			// fmt.Printf("%s", string(receivedBytes[i]))
 		}
 		fmt.Printf("[nikhilk2] %s", x)
