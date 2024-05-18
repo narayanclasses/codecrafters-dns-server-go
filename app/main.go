@@ -36,10 +36,13 @@ func main() {
 
 		receivedBytes := []byte(string(buf[:size]))
 
+		x := ""
 		i := 0
 		for i < len(receivedBytes) {
-			fmt.Printf("%s", string(receivedBytes[i]))
+			x += string(receivedBytes[i])
+			// fmt.Printf("%s", string(receivedBytes[i]))
 		}
+		fmt.Printf("%s", x)
 
 		// Process received quuestion
 		receivedQuestion := []byte{}
