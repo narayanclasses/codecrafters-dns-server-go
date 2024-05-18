@@ -36,17 +36,17 @@ func main() {
 
 		receivedBytes := []byte(string(buf[:size]))
 
-		// x := ""
-		// i := 0
-		// for i < len(receivedBytes) {
-		// 	x += string(receivedBytes[i])
-		// 	// fmt.Printf("%s", string(receivedBytes[i]))
-		// }
-		// fmt.Printf("%s", x)
+		x := ""
+		i := 0
+		for i < len(receivedBytes) {
+			x += string(receivedBytes[i])
+			// fmt.Printf("%s", string(receivedBytes[i]))
+		}
+		fmt.Printf("[nikhilk2] %s", x)
 
 		// Process received quuestion
 		receivedQuestion := []byte{}
-		i := 12
+		// i := 12
 		for i < len(receivedBytes) {
 			length := int(receivedBytes[i])
 			receivedQuestion = append(receivedQuestion, receivedBytes[i])
@@ -60,7 +60,6 @@ func main() {
 
 		receivedQuestion = append(receivedQuestion, 0, 1, 0, 1)
 
-		// Create an empty response
 		response := []byte{
 			4, 210,
 			128,
