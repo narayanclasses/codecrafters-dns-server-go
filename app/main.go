@@ -46,22 +46,20 @@ func main() {
 			break
 		}
 
-		receivedBytes := []byte(string(buf))
-
 		// Process received question
 		receivedQuestion := []byte{}
-		i := 14
-		for i < len(receivedBytes) {
+		i := 12
+		for i < len(buf) {
 			fmt.Println("nikhilk2")
-			fmt.Println(receivedBytes[i])
-			length := int(receivedBytes[i])
+			fmt.Println(buf[i])
+			length := int(buf[i])
 			fmt.Println(length)
-			receivedQuestion = append(receivedQuestion, receivedBytes[i])
+			receivedQuestion = append(receivedQuestion, buf[i])
 			if length == 0 {
 				break
 			}
 			i++ // move to the start of the segment
-			receivedQuestion = append(receivedQuestion, receivedBytes[i:i+length]...)
+			receivedQuestion = append(receivedQuestion, buf[i:i+length]...)
 			i += length // move to the next length prefix
 		}
 
