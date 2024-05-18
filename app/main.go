@@ -36,21 +36,21 @@ func main() {
 
 		receivedBytes := []byte(string(buf[:size]))
 
-		i := 0
-		for i < len(receivedBytes) {
-			fmt.Println("nikhilk")
-			fmt.Println(receivedBytes[i])
-			i++
-		}
+		// i := 0
+		// for i < len(receivedBytes) {
+		// 	fmt.Println("nikhilk")
+		// 	fmt.Println(receivedBytes[i])
+		// 	i++
+		// }
 
 		// Process received question
 		receivedQuestion := []byte{}
-		i = 12
+		i := 12
 		for i < len(receivedBytes) {
-			fmt.Println("nikhilk2")
-			fmt.Println(receivedBytes[i])
+			// fmt.Println("nikhilk2")
+			// fmt.Println(receivedBytes[i])
 			length := int(receivedBytes[i])
-			fmt.Println(length)
+			// fmt.Println(length)
 			receivedQuestion = append(receivedQuestion, receivedBytes[i])
 			if length == 0 {
 				break
@@ -71,6 +71,8 @@ func main() {
 			0, 0,
 			0, 0,
 		}
+
+		fmt.Println(len(receivedQuestion))
 
 		response = append(response, receivedQuestion...)
 
