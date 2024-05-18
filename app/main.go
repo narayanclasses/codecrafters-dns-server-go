@@ -34,19 +34,36 @@ func main() {
 			break
 		}
 
-		receivedData := string(buf[:size])
-		fmt.Printf("Received %d bytes from %s: %s\n", size, source, receivedData)
+		receivedBytes := []byte(string(buf[:size]))
+
+		// Process received quuestion
+		receivedQuestion := []byte{}
+		i := 0
+		for i < len(receivedBytes) {
+			length := int(receivedBytes[i])
+			receivedQuestion = append(receivedQuestion, receivedBytes[i])
+			if length == 0 {
+				break
+			}
+			i++ // move to the start of the segment
+			receivedQuestion = append(receivedQuestion, receivedBytes[i:i+length]...)
+			i += length // move to the next length prefix
+		}
+
+		receivedQuestion = append(receivedQuestion, 0, 1, 0, 1)
 
 		// Create an empty response
 		response := []byte{
 			4, 210,
 			128,
 			0,
-			0, 0,
+			1, 0,
 			0, 0,
 			0, 0,
 			0, 0,
 		}
+
+		response = append(response, receivedQuestion...)
 
 		_, err = udpConn.WriteToUDP(response, source)
 		if err != nil {
