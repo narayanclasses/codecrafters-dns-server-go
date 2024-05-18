@@ -50,10 +50,7 @@ func main() {
 		receivedQuestion := []byte{}
 		i := 12
 		for i < len(buf) {
-			fmt.Println("nikhilk2")
-			fmt.Println(buf[i])
 			length := int(buf[i])
-			fmt.Println(length)
 			receivedQuestion = append(receivedQuestion, buf[i])
 			if length == 0 {
 				break
@@ -75,13 +72,7 @@ func main() {
 			0, 0,
 			0, 0)
 
-		fmt.Println(len(receivedQuestion))
-
 		response = append(response, receivedQuestion...)
-
-		fmt.Println(len(response))
-
-		fmt.Println(response)
 
 		_, err = udpConn.WriteToUDP(response, source)
 		if err != nil {
