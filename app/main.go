@@ -40,9 +40,12 @@ func main() {
 		// Create an empty response
 		response := []byte{
 			4, 210,
-			1,
+			128,
 			0,
-			0, 0, 0, 0, 0, 0, 0, 0,
+			0, 0,
+			0, 0,
+			0, 0,
+			0, 0,
 		}
 
 		_, err = udpConn.WriteToUDP(response, source)
