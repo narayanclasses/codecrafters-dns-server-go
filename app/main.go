@@ -2,9 +2,20 @@ package main
 
 import (
 	"fmt"
+	"strings"
 	// Uncomment this block to pass the first stage
 	"net"
 )
+
+func encodeDomain(domain string) []byte {
+	encodes := []byte{}
+	for _, seg := range strings.Split(domain, ".") {
+		n := len(seg)
+		encodes = append(encodes, byte(n))
+		encodes = append(encodes, []byte(seg)...)
+	}
+	return append(encodes, 0x00)
+}
 
 func main() {
 	// You can use print statements as follows for debugging, they'll be visible when running tests.
@@ -45,20 +56,22 @@ func main() {
 
 		// Process received question
 		receivedQuestion := []byte{}
-		i := 12
-		for i < len(receivedBytes) {
-			// fmt.Println("nikhilk2")
-			// fmt.Println(receivedBytes[i])
-			length := int(receivedBytes[i])
-			// fmt.Println(length)
-			receivedQuestion = append(receivedQuestion, receivedBytes[i])
-			if length == 0 {
-				break
-			}
-			i++ // move to the start of the segment
-			receivedQuestion = append(receivedQuestion, receivedBytes[i:i+length]...)
-			i += length // move to the next length prefix
-		}
+		// i := 12
+		// for i < len(receivedBytes) {
+		// 	// fmt.Println("nikhilk2")
+		// 	// fmt.Println(receivedBytes[i])
+		// 	length := int(receivedBytes[i])
+		// 	// fmt.Println(length)
+		// 	receivedQuestion = append(receivedQuestion, receivedBytes[i])
+		// 	if length == 0 {
+		// 		break
+		// 	}
+		// 	i++ // move to the start of the segment
+		// 	receivedQuestion = append(receivedQuestion, receivedBytes[i:i+length]...)
+		// 	i += length // move to the next length prefix
+		// }
+
+		receivedQuestion = append(receivedQuestion, encodeDomain("codecrafters.io")...)
 
 		receivedQuestion = append(receivedQuestion, 0, 1, 0, 1)
 
