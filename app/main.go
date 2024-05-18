@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"strings"
+
 	// Uncomment this block to pass the first stage
 	"net"
 )
@@ -39,13 +40,13 @@ func main() {
 	buf := make([]byte, 512)
 
 	for {
-		size, source, err := udpConn.ReadFromUDP(buf)
+		_, source, err := udpConn.ReadFromUDP(buf)
 		if err != nil {
 			fmt.Println("Error receiving data:", err)
 			break
 		}
 
-		receivedBytes := []byte(string(buf[:size]))
+		// receivedBytes := []byte(string(buf[:size]))
 
 		// i := 0
 		// for i < len(receivedBytes) {
