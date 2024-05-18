@@ -39,7 +39,7 @@ func main() {
 		i := 0
 		for i < len(receivedBytes) {
 			fmt.Println("nikhilk")
-			fmt.Println(receivedBytes[i])
+			fmt.Println(receivedBytes[i]) 
 			i++
 		}
 
