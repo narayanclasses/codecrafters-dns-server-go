@@ -40,6 +40,7 @@ func main() {
 		for i < len(receivedBytes) {
 			fmt.Println("nikhilk")
 			fmt.Println(receivedBytes[i])
+			i++
 		}
 
 		// Process received question
