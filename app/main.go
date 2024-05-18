@@ -38,7 +38,7 @@ func main() {
 
 		// Process received quuestion
 		receivedQuestion := []byte{}
-		i := 0
+		i := 128
 		for i < len(receivedBytes) {
 			length := int(receivedBytes[i])
 			receivedQuestion = append(receivedQuestion, receivedBytes[i])
