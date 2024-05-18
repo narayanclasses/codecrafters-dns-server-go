@@ -39,7 +39,7 @@ func main() {
 		i := 0
 		for i < len(receivedBytes) {
 			fmt.Println("nikhilk")
-			fmt.Println(receivedBytes[i]) 
+			fmt.Println(receivedBytes[i])
 			i++
 		}
 
@@ -47,8 +47,9 @@ func main() {
 		receivedQuestion := []byte{}
 		i = 12
 		for i < len(receivedBytes) {
+			fmt.Println("nikhilk2")
+			fmt.Println(receivedBytes[i])
 			length := int(receivedBytes[i])
-			fmt.Printf("nikhilk [%s]", string(length))
 			receivedQuestion = append(receivedQuestion, receivedBytes[i])
 			if length == 0 {
 				break
