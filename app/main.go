@@ -90,6 +90,8 @@ func main() {
 
 		response = append(response, receivedQuestion...)
 
+		fmt.Println(len(response))
+
 		_, err = udpConn.WriteToUDP(response, source)
 		if err != nil {
 			fmt.Println("Failed to send response:", err)
