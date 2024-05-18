@@ -41,6 +41,8 @@ func main() {
 		response = append(response, encodeDomain("codecrafters.io")...)
 		response = binary.BigEndian.AppendUint16(response, uint16(1))
 		response = binary.BigEndian.AppendUint16(response, uint16(1))
+
+		fmt.Println(response)
 		if _, err := udpConn.WriteToUDP(response, source); err != nil {
 			log.Fatal(err.Error())
 		}
