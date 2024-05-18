@@ -66,7 +66,6 @@ func main() {
 		receivedQuestion = append(receivedQuestion, 0, 1, 0, 1)
 
 		response := []byte{}
-		response = append(response, buf[:2]...)
 		response = append(response,
 			4, 210,
 			128,
