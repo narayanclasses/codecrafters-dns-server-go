@@ -88,6 +88,7 @@ func main() {
 		// }
 
 		response := []byte{}
+		response = append(response, buf[:2]...)
 		response = append(response, 0b10000000)
 		response = append(response, 0b00000000)
 		response = binary.BigEndian.AppendUint16(response, uint16(1)) // QDCOUNT
