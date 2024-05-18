@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/binary"
 	"fmt"
 	"strings"
 
@@ -76,19 +77,30 @@ func main() {
 
 		receivedQuestion = append(receivedQuestion, 0, 1, 0, 1)
 
-		response := []byte{
-			4, 210,
-			128,
-			0,
-			1, 0,
-			0, 0,
-			0, 0,
-			0, 0,
-		}
+		// response := []byte{
+		// 	4, 210,
+		// 	128,
+		// 	0,
+		// 	1, 0,
+		// 	0, 0,
+		// 	0, 0,
+		// 	0, 0,
+		// }
 
-		fmt.Println(len(receivedQuestion))
+		response := []byte{}
+		response = append(response, 0b10000000)
+		response = append(response, 0b00000000)
+		response = binary.BigEndian.AppendUint16(response, uint16(1)) // QDCOUNT
+		response = binary.BigEndian.AppendUint16(response, 0x0000)    // ANCOUNT
+		response = binary.BigEndian.AppendUint16(response, 0x0000)    // NSCOUNT
+		response = binary.BigEndian.AppendUint16(response, 0x0000)    // ARCOUNT
+		response = append(response, encodeDomain("codecrafters.io")...)
+		response = binary.BigEndian.AppendUint16(response, uint16(1))
+		response = binary.BigEndian.AppendUint16(response, uint16(1))
 
-		response = append(response, receivedQuestion...)
+		// fmt.Println(len(receivedQuestion))
+
+		// response = append(response, receivedQuestion...)
 
 		fmt.Println(len(response))
 
