@@ -46,16 +46,14 @@ func main() {
 			break
 		}
 
-		// fmt.Println("nikhilk")
-		// fmt.Println(buf)
+		fmt.Println("nikhilk")
+		fmt.Println(buf)
 
 		// Process received question
 		receivedQuestion := []byte{}
 		answerSection := []byte{}
 		i := 12
 		qcount := int(buf[5])
-		fmt.Println("nikhilk2")
-		fmt.Println(qcount)
 		j := 0
 		for j < qcount {
 			for i < len(buf) {
@@ -72,9 +70,6 @@ func main() {
 			}
 			j++
 		}
-
-		fmt.Println("nikhilk3")
-		fmt.Println(receivedQuestion)
 
 		receivedQuestion = append(receivedQuestion, 0, 1, 0, 1)
 		answerSection = append(answerSection,
@@ -103,6 +98,9 @@ func main() {
 
 		response = append(response, receivedQuestion...)
 		response = append(response, answerSection...)
+
+		fmt.Println("nikhilk2")
+		fmt.Println(response)
 
 		_, err = udpConn.WriteToUDP(response, source)
 		if err != nil {
