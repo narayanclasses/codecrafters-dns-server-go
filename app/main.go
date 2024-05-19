@@ -54,6 +54,8 @@ func main() {
 		answerSection := []byte{}
 		i := 12
 		qcount := int(buf[4])
+		fmt.Println("nikhil")
+		fmt.Println(qcount)
 		for qcount > 0 {
 			for i < len(buf) {
 				length := int(buf[i])
