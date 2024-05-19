@@ -71,7 +71,7 @@ func main() {
 		receivedQuestion := []byte{}
 		answerSection := []byte{}
 		i := 12
-		qcount := int(dnsBuf[5])
+		qcount := int(buf[5])
 		j := 0
 		for j < qcount {
 			tempi := -1
