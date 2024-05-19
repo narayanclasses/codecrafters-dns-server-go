@@ -3,6 +3,7 @@ package main
 import (
 	"flag"
 	"fmt"
+	"os"
 	"strings"
 
 	// Uncomment this block to pass the first stage
@@ -27,7 +28,6 @@ func main() {
 	flag.Parse()
 
 	// Uncomment this block to pass the first stage
-	//
 	udpAddr, err := net.ResolveUDPAddr("udp", "127.0.0.1:2053")
 	if err != nil {
 		fmt.Println("Failed to resolve UDP address:", err)
@@ -40,22 +40,22 @@ func main() {
 		return
 	}
 	defer udpConn.Close()
-
 	buf := make([]byte, 512)
-	dnsBuf := make([]byte, 512)
 
 	dnsResolver, err := net.ResolveUDPAddr("udp", *dnsResolverAddress)
 	if err != nil {
 		fmt.Println("Failed to resolve DNS resolver address:", err)
 		return
 	}
-	dnsResolverConn, err := net.ListenUDP("udp", dnsResolver)
-	if err != nil {
-		fmt.Println("Failed to bind to dns resolver address:", err)
-		return
-	}
 
+	// Create a UDP socket
+	dnsResolverConn, err := net.DialUDP("udp", nil, dnsResolver)
+	if err != nil {
+		fmt.Println("Error creating socket:", err)
+		os.Exit(1)
+	}
 	defer dnsResolverConn.Close()
+	dnsBuf := make([]byte, 512)
 
 	for {
 		_, source, err := udpConn.ReadFromUDP(buf)
