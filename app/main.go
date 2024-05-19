@@ -83,13 +83,11 @@ func main() {
 					continue
 				}
 				receivedQuestion = append(receivedQuestion, buf[i])
-				answerSection = append(answerSection, buf[i])
 				if length == 0 {
 					break
 				}
 				i++ // move to the start of the segment
 				receivedQuestion = append(receivedQuestion, buf[i:i+length]...)
-				answerSection = append(answerSection, buf[i:i+length]...)
 				i += length // move to the next length prefix
 			}
 			if tempi != -1 {
