@@ -103,7 +103,7 @@ func main() {
 		fmt.Println("answersectionstart")
 		fmt.Println(i)
 
-		answerSection = append(answerSection, buf[i:]...)
+		answerSection = append(answerSection, dnsBuf[i:]...)
 		opcode := buf[2] & (121)
 		rcode := make([]byte, 1)
 		if opcode != 0 {
