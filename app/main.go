@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"strings"
 
@@ -22,6 +23,9 @@ func main() {
 	// You can use print statements as follows for debugging, they'll be visible when running tests.
 	fmt.Println("Logs from your program will appear here!")
 
+	dnsResolverAddress := flag.String("resolver", "", "DNS resolver address")
+	flag.Parse()
+
 	// Uncomment this block to pass the first stage
 	//
 	udpAddr, err := net.ResolveUDPAddr("udp", "127.0.0.1:2053")
@@ -38,6 +42,20 @@ func main() {
 	defer udpConn.Close()
 
 	buf := make([]byte, 512)
+	dnsBuf := make([]byte, 512)
+
+	dnsResolver, err := net.ResolveUDPAddr("udp", *dnsResolverAddress)
+	if err != nil {
+		fmt.Println("Failed to resolve DNS resolver address:", err)
+		return
+	}
+	dnsResolverConn, err := net.ListenUDP("udp", dnsResolver)
+	if err != nil {
+		fmt.Println("Failed to bind to dns resolver address:", err)
+		return
+	}
+
+	defer dnsResolverConn.Close()
 
 	for {
 		_, source, err := udpConn.ReadFromUDP(buf)
@@ -45,6 +63,9 @@ func main() {
 			fmt.Println("Error receiving data:", err)
 			break
 		}
+
+		dnsResolverConn.Write(buf)
+		dnsResolverConn.ReadFromUDP(dnsBuf)
 
 		// Process received question
 		receivedQuestion := []byte{}
@@ -75,16 +96,11 @@ func main() {
 				i = tempi
 			}
 			receivedQuestion = append(receivedQuestion, buf[i+1], buf[i+2], buf[i+3], buf[i+4])
-			answerSection = append(answerSection, buf[i+1], buf[i+2], buf[i+3], buf[i+4])
-			answerSection = append(answerSection,
-				0, 0, 0, 0,
-				0, 4,
-				0x08, 0x08, 0x08, 0x08,
-			)
 			i = i + 5
 			j++
 		}
 
+		answerSection = append(answerSection, buf[i:]...)
 		opcode := buf[2] & (121)
 		rcode := make([]byte, 1)
 		if opcode != 0 {
@@ -92,6 +108,7 @@ func main() {
 		}
 
 		response := []byte{}
+		// Prepare response header
 		response = append(response,
 			buf[0], buf[1],
 			(buf[2]&(121))|(128),
