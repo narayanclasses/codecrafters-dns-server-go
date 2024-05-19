@@ -1,7 +1,6 @@
 package main
 
 import (
-	"encoding/binary"
 	"fmt"
 	"strings"
 
@@ -74,9 +73,9 @@ func main() {
 		)
 
 		opcode := buf[2] & (121)
-		rcode := make([]byte, 4)
+		rcode := make([]byte, 1)
 		if opcode != 0 {
-			binary.BigEndian.PutUint32(rcode, uint32(4))
+			rcode[0] = 4
 		}
 
 		fmt.Println("request")
