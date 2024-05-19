@@ -100,8 +100,8 @@ func main() {
 			j++
 		}
 
-		fmt.Println("answersectionstart")
-		fmt.Println(i)
+		fmt.Println("received_question")
+		fmt.Println(receivedQuestion)
 
 		answerSection = append(answerSection, dnsBuf[i:]...)
 		opcode := buf[2] & (121)
