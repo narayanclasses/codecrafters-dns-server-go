@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/binary"
 	"fmt"
 	"strings"
 
@@ -72,15 +73,23 @@ func main() {
 			0x08, 0x08, 0x08, 0x08,
 		)
 
+		opcode := buf[2] & (121)
+		rcode := make([]byte, 1)
+		if opcode != 0 {
+			binary.BigEndian.PutUint32(rcode, uint32(4))
+		}
+
 		response := []byte{}
 		response = append(response,
-			4, 210,
-			128,
-			0,
+			buf[0], buf[1],
+			(buf[2]&(121))|(128),
+			rcode[0],
 			0, 1,
 			0, 1,
 			0, 0,
 			0, 0)
+
+		fmt.Println(response)
 
 		response = append(response, receivedQuestion...)
 		response = append(response, answerSection...)
