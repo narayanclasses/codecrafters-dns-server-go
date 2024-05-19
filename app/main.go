@@ -56,7 +56,8 @@ func main() {
 		qcount := int(buf[5])
 		fmt.Println("nikhilk2")
 		fmt.Println(qcount)
-		for qcount > 0 {
+		j := 0
+		for j < qcount {
 			for i < len(buf) {
 				length := int(buf[i])
 				receivedQuestion = append(receivedQuestion, buf[i])
@@ -69,7 +70,7 @@ func main() {
 				answerSection = append(answerSection, buf[i:i+length]...)
 				i += length // move to the next length prefix
 			}
-			qcount--
+			j++
 		}
 
 		fmt.Println("nikhilk3")
