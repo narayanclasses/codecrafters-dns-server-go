@@ -46,24 +46,28 @@ func main() {
 			break
 		}
 
-		fmt.Println("request")
-		fmt.Println(buf)
+		// fmt.Println("request")
+		// fmt.Println(buf)
 
 		// Process received question
 		receivedQuestion := []byte{}
 		answerSection := []byte{}
 		i := 12
-		for i < len(buf) {
-			length := int(buf[i])
-			receivedQuestion = append(receivedQuestion, buf[i])
-			answerSection = append(answerSection, buf[i])
-			if length == 0 {
-				break
+		qcount := int(buf[4])
+		for qcount > 0 {
+			for i < len(buf) {
+				length := int(buf[i])
+				receivedQuestion = append(receivedQuestion, buf[i])
+				answerSection = append(answerSection, buf[i])
+				if length == 0 {
+					break
+				}
+				i++ // move to the start of the segment
+				receivedQuestion = append(receivedQuestion, buf[i:i+length]...)
+				answerSection = append(answerSection, buf[i:i+length]...)
+				i += length // move to the next length prefix
 			}
-			i++ // move to the start of the segment
-			receivedQuestion = append(receivedQuestion, buf[i:i+length]...)
-			answerSection = append(answerSection, buf[i:i+length]...)
-			i += length // move to the next length prefix
+			qcount--
 		}
 
 		receivedQuestion = append(receivedQuestion, 0, 1, 0, 1)
@@ -86,8 +90,8 @@ func main() {
 			buf[0], buf[1],
 			(buf[2]&(121))|(128),
 			rcode[0],
-			0, 1,
-			0, 1,
+			0, byte(qcount),
+			0, byte(qcount),
 			0, 0,
 			0, 0)
 
