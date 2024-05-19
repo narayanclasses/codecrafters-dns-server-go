@@ -56,8 +56,14 @@ func main() {
 		qcount := int(buf[5])
 		j := 0
 		for j < qcount {
+			tempi := -1
 			for i < len(buf) {
 				length := int(buf[i])
+				if length == 192 {
+					tempi = i + 1
+					i = int(buf[i+1])
+					continue
+				}
 				receivedQuestion = append(receivedQuestion, buf[i])
 				answerSection = append(answerSection, buf[i])
 				if length == 0 {
@@ -68,14 +74,16 @@ func main() {
 				answerSection = append(answerSection, buf[i:i+length]...)
 				i += length // move to the next length prefix
 			}
-			i++
+			if tempi != -1 {
+				i = tempi
+			}
+			receivedQuestion = append(receivedQuestion, buf[i+1], buf[i+2], buf[i+3], buf[i+4])
+			answerSection = append(answerSection, buf[i+1], buf[i+2], buf[i+3], buf[i+4])
+			i = i + 5
 			j++
 		}
 
-		receivedQuestion = append(receivedQuestion, 0, 1, 0, 1)
 		answerSection = append(answerSection,
-			0, 1,
-			0, 1,
 			0, 0, 0, 0,
 			0, 4,
 			0x08, 0x08, 0x08, 0x08,
