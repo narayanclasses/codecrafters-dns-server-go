@@ -46,9 +46,6 @@ func main() {
 			break
 		}
 
-		fmt.Println("nikhilk")
-		fmt.Println(buf)
-
 		// Process received question
 		receivedQuestion := []byte{}
 		answerSection := []byte{}
@@ -106,9 +103,6 @@ func main() {
 
 		response = append(response, receivedQuestion...)
 		response = append(response, answerSection...)
-
-		fmt.Println("nikhilk2")
-		fmt.Println(response)
 
 		_, err = udpConn.WriteToUDP(response, source)
 		if err != nil {
