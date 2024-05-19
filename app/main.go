@@ -74,7 +74,7 @@ func main() {
 		)
 
 		opcode := buf[2] & (121)
-		rcode := make([]byte, 1)
+		rcode := make([]byte, 4)
 		if opcode != 0 {
 			binary.BigEndian.PutUint32(rcode, uint32(4))
 		}
