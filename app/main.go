@@ -89,7 +89,7 @@ func main() {
 			0, 0,
 			0, 0)
 
-		fmt.Println(response)
+		fmt.Println(response) 
 
 		response = append(response, receivedQuestion...)
 		response = append(response, answerSection...)
