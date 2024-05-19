@@ -46,6 +46,9 @@ func main() {
 			break
 		}
 
+		fmt.Println("request")
+		fmt.Println(buf)
+
 		// Process received question
 		receivedQuestion := []byte{}
 		answerSection := []byte{}
