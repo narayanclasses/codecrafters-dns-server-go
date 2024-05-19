@@ -78,9 +78,6 @@ func main() {
 			rcode[0] = 4
 		}
 
-		fmt.Println("request")
-		fmt.Println(buf)
-
 		response := []byte{}
 		response = append(response,
 			buf[0], buf[1],
@@ -90,9 +87,6 @@ func main() {
 			0, 1,
 			0, 0,
 			0, 0)
-
-		fmt.Println("response")
-		fmt.Println(response)
 
 		response = append(response, receivedQuestion...)
 		response = append(response, answerSection...)
