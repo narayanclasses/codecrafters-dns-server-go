@@ -121,6 +121,13 @@ func main() {
 		response = append(response, receivedQuestion...)
 		response = append(response, answerSection...)
 
+		fmt.Println("nikhilk")
+		fmt.Println(buf)
+		fmt.Println("nikhilk2")
+		fmt.Println(dnsBuf)
+		fmt.Println("nikhilk3")
+		fmt.Println(response)
+
 		_, err = udpConn.WriteToUDP(response, source)
 		if err != nil {
 			fmt.Println("Failed to send response:", err)
