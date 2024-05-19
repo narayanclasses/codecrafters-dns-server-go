@@ -79,15 +79,14 @@ func main() {
 			}
 			receivedQuestion = append(receivedQuestion, buf[i+1], buf[i+2], buf[i+3], buf[i+4])
 			answerSection = append(answerSection, buf[i+1], buf[i+2], buf[i+3], buf[i+4])
+			answerSection = append(answerSection,
+				0, 0, 0, 0,
+				0, 4,
+				0x08, 0x08, 0x08, 0x08,
+			)
 			i = i + 5
 			j++
 		}
-
-		answerSection = append(answerSection,
-			0, 0, 0, 0,
-			0, 4,
-			0x08, 0x08, 0x08, 0x08,
-		)
 
 		opcode := buf[2] & (121)
 		rcode := make([]byte, 1)
