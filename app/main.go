@@ -46,15 +46,15 @@ func main() {
 			break
 		}
 
-		// fmt.Println("request")
-		// fmt.Println(buf)
+		fmt.Println("nikhilk")
+		fmt.Println(buf)
 
 		// Process received question
 		receivedQuestion := []byte{}
 		answerSection := []byte{}
 		i := 12
 		qcount := int(buf[4])
-		fmt.Println("nikhil")
+		fmt.Println("nikhilk2")
 		fmt.Println(qcount)
 		for qcount > 0 {
 			for i < len(buf) {
