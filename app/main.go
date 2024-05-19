@@ -100,6 +100,9 @@ func main() {
 			j++
 		}
 
+		fmt.Println("answersectionstart")
+		fmt.Println(i)
+
 		answerSection = append(answerSection, buf[i:]...)
 		opcode := buf[2] & (121)
 		rcode := make([]byte, 1)
