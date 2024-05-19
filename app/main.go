@@ -75,25 +75,25 @@ func main() {
 		j := 0
 		for j < qcount {
 			tempi := -1
-			for i < len(dnsBuf) {
-				length := int(dnsBuf[i])
+			for i < len(buf) {
+				length := int(buf[i])
 				if length == 192 {
 					tempi = i + 1
-					i = int(dnsBuf[i+1])
+					i = int(buf[i+1])
 					continue
 				}
-				receivedQuestion = append(receivedQuestion, dnsBuf[i])
+				receivedQuestion = append(receivedQuestion, buf[i])
 				if length == 0 {
 					break
 				}
 				i++ // move to the start of the segment
-				receivedQuestion = append(receivedQuestion, dnsBuf[i:i+length]...)
+				receivedQuestion = append(receivedQuestion, buf[i:i+length]...)
 				i += length // move to the next length prefix
 			}
 			if tempi != -1 {
 				i = tempi
 			}
-			receivedQuestion = append(receivedQuestion, dnsBuf[i+1], dnsBuf[i+2], dnsBuf[i+3], buf[i+4])
+			receivedQuestion = append(receivedQuestion, buf[i+1], buf[i+2], buf[i+3], buf[i+4])
 			i = i + 5
 			j++
 		}
