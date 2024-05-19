@@ -68,6 +68,7 @@ func main() {
 				answerSection = append(answerSection, buf[i:i+length]...)
 				i += length // move to the next length prefix
 			}
+			i++
 			j++
 		}
 
