@@ -72,6 +72,9 @@ func main() {
 			qcount--
 		}
 
+		fmt.Println("nikhilk3")
+		fmt.Println(receivedQuestion)
+
 		receivedQuestion = append(receivedQuestion, 0, 1, 0, 1)
 		answerSection = append(answerSection,
 			0, 1,
